@@ -7,6 +7,7 @@ import javafx.application.Application;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
@@ -36,17 +37,27 @@ public class Main extends Application
 		testLabel.setText( "Hi" );
 		// Add our Label to the GridPane.
 		root.add( testLabel, 0, 0 );
+		// Create a button to start the Timeline.
+		Button startButton = new Button( "Start" );
+		// Add our Button to the GridPane.
+		root.add( startButton, 0, 1 );
 
 		// Bind our Label to our StringProperty.
 		testLabel.textProperty().bind( testSP );
 
 		// Create a Timeline object that updates as often as the value that KeyFrame Duration is set to.
 		Timeline ajhTL = new Timeline( new KeyFrame( Duration.millis( 1000 ), event -> UpdateStringProperty() ) );
+		//Timeline ajhTL = new Timeline( new KeyFrame( Duration.millis( 100 ), event -> UpdateStringProperty() ) );
+
 		// Set the number of times the Timeline will update.
-		// This can be set to Timeline.INDEFINITE if you wish to run forever.~
+		// This can be set to Timeline.INDEFINITE if you wish to run forever.
 		ajhTL.setCycleCount( 120 );
-		// Start the Timeline.
-		ajhTL.play();
+		//ajhTL.setCycleCount( Timeline.INDEFINITE );
+
+		// Start the Timeline as soon as the app loads.
+		//ajhTL.play();
+		// Start the Timeline when the button is pressed.
+		startButton.setOnAction( event -> ajhTL.play() );
 
 		// Display our stage.
 		primaryStage.show();
